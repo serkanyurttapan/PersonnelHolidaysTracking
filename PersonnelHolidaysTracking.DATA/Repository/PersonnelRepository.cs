@@ -32,7 +32,7 @@ namespace PersonnelHolidaysTracking.Data.Repository
             int reaminingDay = deserveDay - sumHoliday;
 
             IEnumerable<PersonnelHolidayDto> personnelHolidayDtos = from p in personnels.PersonnelHolidays
-
+                                                                     
                                                                     select new PersonnelHolidayDto()
                                                                     {
                                                                         PersonnelHolidayId = p.PersonnelId
