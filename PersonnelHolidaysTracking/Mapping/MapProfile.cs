@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PersonnelHolidaysTracking.API.Mapping
 {
-    public class MapProfile:Profile
+    public class MapProfile : Profile
     {
         public MapProfile()
         {
@@ -18,6 +18,8 @@ namespace PersonnelHolidaysTracking.API.Mapping
             CreateMap<Personnel, PersonnelWithPersonnelHolidayDto>();
             CreateMap<PersonnelHolidayDto, PersonnelHoliday>();
             CreateMap<PersonnelHoliday, PersonnelHolidayDto>();
+            CreateMap<DepartmentDto, Department>();
+            CreateMap<Department, DepartmentDto>();
         }
     }
 }

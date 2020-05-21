@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelHolidaysTracking.Core.DTOs;
+using PersonnelHolidaysTracking.Core.Models;
 using PersonnelHolidaysTracking.Core.Services;
+using System.Threading.Tasks;
 
 namespace PersonnelHolidaysTracking.API.Controllers
 {
@@ -23,19 +20,45 @@ namespace PersonnelHolidaysTracking.API.Controllers
         }
 
 
-        [HttpGet()]
-        public string GetAll()
-        {
-            return "";
-        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var personnels = await _personnelService.GetAllAsync();
+            return Ok(personnels);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             PersonnelDto personels = await _personnelService.GetWithIPersonnelHolidayGetByAsync(id);
 
-            return Ok(_mapper.Map<PersonnelDto>(_mapper.Map<PersonnelWithPersonnelHolidayDto>(personels)));
+            return Ok(_mapper.Map<PersonnelWithPersonnelHolidayDto>(personels));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Save(Personnel personnel)
+        {
+            //{
+            //   "PersonnelFirstName":"TestPostman"
+            //"WorkStartDate":"2018-01-01",
+            // "DepartmentId":1
+            var newPersonel = await _personnelService.AddAsync(personnel);
+            return Created("", _mapper.Map<Personnel>(newPersonel));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int Id)
+        {
+            var category = _personnelService.GetByIdAsync(Id).Result;
+            _personnelService.Remove(category);
+
+            return NoContent();
+        }
+        [HttpPut]
+        public IActionResult Update(Personnel personnel)
+        {
+            var category = _personnelService.Update(_mapper.Map<Personnel>(personnel));
+            return NoContent();
         }
     }
 }

@@ -8,11 +8,6 @@ namespace PersonnelHolidaysTracking.Core.DTOs
     {
         public int PersonnelId { get; set; }
         public string PersonnelFirstName { get; set; }
-        //public string PersonnelLastName { get; set; }
-        //public DateTime WorkStartDate { get; set; }
-        //public int DepartmentId { get; set; }
-        // public bool IsDeleted { get; set; }
-
         public long ReaminingDay { get; set; }
 
     }
