@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelHolidaysTracking.API", "PersonnelHolidaysTracking\PersonnelHolidaysTracking.API.csproj", "{96626B08-D033-4A5A-AFED-BC580C8BDFBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelHolidaysTracking.API", "PersonnelHolidaysTracking\PersonnelHolidaysTracking.API.csproj", "{96626B08-D033-4A5A-AFED-BC580C8BDFBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelHolidaysTracking.Data", "PersonnelHolidaysTracking.DATA\PersonnelHolidaysTracking.Data.csproj", "{6C325723-40E9-4BBE-97E4-3E860A995EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelHolidaysTracking.Data", "PersonnelHolidaysTracking.DATA\PersonnelHolidaysTracking.Data.csproj", "{6C325723-40E9-4BBE-97E4-3E860A995EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelHolidaysTracking.Core", "PersonnelHolidaysTracking.CORE\PersonnelHolidaysTracking.Core.csproj", "{6E59F907-6E93-4411-A4F1-9933962103BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelHolidaysTracking.Core", "PersonnelHolidaysTracking.CORE\PersonnelHolidaysTracking.Core.csproj", "{6E59F907-6E93-4411-A4F1-9933962103BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelHolidaysTracking.Service", "PersonnelHolidaysTracking.Services\PersonnelHolidaysTracking.Service.csproj", "{C542D42D-C393-4A4B-9FD8-01810FE9C433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelHolidaysTracking.Service", "PersonnelHolidaysTracking.Services\PersonnelHolidaysTracking.Service.csproj", "{C542D42D-C393-4A4B-9FD8-01810FE9C433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonelHolidayTracking.Web", "PersonelHolidayTracking.Web\PersonelHolidayTracking.Web.csproj", "{99BB65F2-3C78-4749-9934-6FD759B6D768}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C542D42D-C393-4A4B-9FD8-01810FE9C433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C542D42D-C393-4A4B-9FD8-01810FE9C433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C542D42D-C393-4A4B-9FD8-01810FE9C433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BB65F2-3C78-4749-9934-6FD759B6D768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BB65F2-3C78-4749-9934-6FD759B6D768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BB65F2-3C78-4749-9934-6FD759B6D768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BB65F2-3C78-4749-9934-6FD759B6D768}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
