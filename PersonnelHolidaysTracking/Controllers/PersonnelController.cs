@@ -38,10 +38,6 @@ namespace PersonnelHolidaysTracking.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(Personnel personnel)
         {
-            //{
-            //   "PersonnelFirstName":"TestPostman"
-            //"WorkStartDate":"2018-01-01",
-            // "DepartmentId":1
             var newPersonel = await _personnelService.AddAsync(personnel);
             return Created("", _mapper.Map<Personnel>(newPersonel));
         }

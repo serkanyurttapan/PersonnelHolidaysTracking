@@ -10,6 +10,5 @@ namespace PersonnelHolidaysTracking.Core.DTOs
         public string Description { get; set; }
         public DateTime HolidayStartDate { get; set; }
         public DateTime HolidayEndDate { get; set; }
-
     }
 }

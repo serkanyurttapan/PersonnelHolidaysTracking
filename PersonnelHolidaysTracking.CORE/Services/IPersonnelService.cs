@@ -10,5 +10,7 @@ namespace PersonnelHolidaysTracking.Core.Services
     public interface IPersonnelService : IServices<Personnel>
     {
         Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId);
+        IEnumerable<PersonnelDto> GetWithIPersonnelHolidays();
+
     }
 }

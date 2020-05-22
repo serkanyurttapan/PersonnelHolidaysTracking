@@ -1,0 +1,42 @@
+﻿@model PersonnelHolidaysTracking.Core.Models.Personnel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Personnel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="PersonnelFirstName" class="control-label"></label>
+                <input asp-for="PersonnelFirstName" required class="form-control" />
+                <span asp-validation-for="PersonnelFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonnelLastName" class="control-label"></label>
+                <input asp-for="PersonnelLastName" required class="form-control" />
+                <span asp-validation-for="PersonnelLastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="WorkStartDate" class="control-label"></label>
+                <input asp-for="WorkStartDate" required class="form-control" />
+                <span asp-validation-for="WorkStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.SysList,"DepartmentId","DepartmentName"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

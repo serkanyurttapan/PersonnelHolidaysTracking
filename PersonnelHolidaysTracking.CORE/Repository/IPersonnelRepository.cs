@@ -10,6 +10,9 @@ namespace PersonnelHolidaysTracking.Core.Repository
     public interface IPersonnelRepository :IRepository<Personnel>
     {
         Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId);
+        IEnumerable<PersonnelDto> GetWithIPersonnelHolidays();
+
+
 
     }
 

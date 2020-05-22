@@ -15,6 +15,7 @@ namespace PersonnelHolidaysTracking.Core.Models
         public string PersonnelFirstName { get; set; }
         public string PersonnelLastName { get; set; }
         public DateTime WorkStartDate { get; set; }
+
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public bool IsDeleted { get; set; }

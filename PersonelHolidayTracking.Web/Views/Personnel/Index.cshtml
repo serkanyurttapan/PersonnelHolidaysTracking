@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PersonnelWithPersonnelHolidayDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3 style="text-align:center; margin:auto">Personnel List</h3>
+  <a class="btn btn-primary mt-4" asp-action="Create">Add New Personnel </a>
+  <hr />
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Department</th>
+            <th>Reamening Holiday</th> 
+        
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PersonnelId</td>
+                <td>@item.PersonnelFirstName</td>
+                <td>@item.PersonnelLastName</td>
+                <td>@item.Department</td>
+
+                <td><strong class="text-secondary"> @item.ReaminingDay</strong></td> 
+                <td><a asp-action="Update" asp-route-id="@item.PersonnelId" class="btn btn-warning">Update Personnel</a> </td>
+                <td><a asp-action="Delete" asp-route-id="@item.PersonnelId" class="btn btn-danger"> Delete Personnel</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

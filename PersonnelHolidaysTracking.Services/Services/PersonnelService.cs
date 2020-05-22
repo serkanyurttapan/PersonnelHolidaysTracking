@@ -21,6 +21,10 @@ namespace PersonnelHolidaysTracking.Service.Services
             return await _unitOfWork.Personnels.GetWithIPersonnelHolidayGetByAsync(personelId);
 
         }
+        public IEnumerable<PersonnelDto> GetWithIPersonnelHolidays()
+        {
+            return _unitOfWork.Personnels.GetWithIPersonnelHolidays();
+        }
 
     }
 }
