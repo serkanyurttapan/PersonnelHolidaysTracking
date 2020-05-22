@@ -20,16 +20,17 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.PersonnelId</td>
-                <td>@item.PersonnelFirstName</td>
-                <td>@item.PersonnelLastName</td>
-                <td>@item.Department</td>
+        <tr>
+            <td>@item.PersonnelId</td>
+            <td>@item.PersonnelFirstName</td>
+            <td>@item.PersonnelLastName</td>
+            <td>@item.Department</td>
 
-                <td><strong class="text-secondary"> @item.ReaminingDay</strong></td> 
-                <td><a asp-action="Update" asp-route-id="@item.PersonnelId" class="btn btn-warning">Update Personnel</a> </td>
-                <td><a asp-action="Delete" asp-route-id="@item.PersonnelId" class="btn btn-danger"> Delete Personnel</a></td>
-            </tr>
+            <td><strong class="text-secondary"> @item.ReaminingDay</strong></td>
+            <td><a asp-action="Update" asp-route-id="@item.PersonnelId" class="btn btn-warning">Update Personnel</a> </td>
+            <td><a asp-action="Delete" asp-route-id="@item.PersonnelId" class="btn btn-danger"> Delete Personnel</a></td>
+            <td><a asp-action="Index" asp-controller="PersonnelHoliday" asp-route-id="@item.PersonnelId" class="btn btn-primary"> Holiday Detail</a> </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -11,6 +11,6 @@ namespace PersonnelHolidaysTracking.Core.Repository
     {
         List<DepartmentDto> GetDepartmentsDto();
 
-
+        void RemoveWithStatus(Department entity);
     }
 }

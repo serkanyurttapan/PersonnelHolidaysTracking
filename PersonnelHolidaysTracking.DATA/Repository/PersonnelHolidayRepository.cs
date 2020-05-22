@@ -19,6 +19,23 @@ namespace PersonnelHolidaysTracking.Data.Repository
         {
 
         }
-     
+
+        public void RemoveWithStatus(PersonnelHoliday entity)
+        {
+            entity.IsDeleted = true;
+          
+        }
+
+        public IEnumerable<PersonnelHolidayDto> GetWithIPersonnelHolidays(int Id)
+        {
+            return _asistPersonnelTrackingContext.PersonnelHolidays.Where(x => x.PersonnelId == Id).Select(x => new PersonnelHolidayDto
+            {
+                PersonnelHolidayId=x.PersonnelHolidayId,
+                Description = x.Description,
+                HolidayEndDate = x.HolidayEndDate,
+                HolidayStartDate = x.HolidayStartDate,
+                 PersonnelId=x.PersonnelId
+            }).ToList();
+        }
     }
 }

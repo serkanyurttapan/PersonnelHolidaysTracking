@@ -10,5 +10,6 @@ namespace PersonnelHolidaysTracking.Core.Services
     public interface IDepartmentService : IServices<Department>
     {
         IList<DepartmentDto> GetDepartmentsDto();
+        void RemoveWithStatus(Department entity);
     }
 }

@@ -24,7 +24,7 @@ namespace PersonnelHolidaysTracking.Data.Repository
         public async Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId)
         {
 
-            Personnel personnels = await _asistPersonnelTrackingContext.Personnels.Include(x => x.PersonnelHolidays).SingleOrDefaultAsync(x => x.PersonnelId == personelId);
+            Personnel personnels = await _asistPersonnelTrackingContext.Personnels.Where(x => x.IsDeleted != true).Include(x => x.PersonnelHolidays).SingleOrDefaultAsync(x => x.PersonnelId == personelId);
 
             var days = (from p in personnels.PersonnelHolidays
 
@@ -65,7 +65,7 @@ namespace PersonnelHolidaysTracking.Data.Repository
         public IEnumerable<PersonnelDto> GetWithIPersonnelHolidays()
         {
             var personnelWithPersonnelHolidays = new List<PersonnelWithPersonnelHolidayDto>();
-            IList<Personnel> personnels = _asistPersonnelTrackingContext.Personnels.Include(x => x.PersonnelHolidays).ToList();
+            IList<Personnel> personnels = _asistPersonnelTrackingContext.Personnels.Where(x=>x.IsDeleted!=true).Include(x => x.PersonnelHolidays).ToList();
 
             foreach (var personnel in personnels)
             {
@@ -112,6 +112,10 @@ namespace PersonnelHolidaysTracking.Data.Repository
 
         }
 
-
+        public void RemoveWithStatus(Personnel entity)
+        {
+            entity.IsDeleted = true;
+             
+        }
     }
 }

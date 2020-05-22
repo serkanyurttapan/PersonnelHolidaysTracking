@@ -56,7 +56,7 @@ namespace PersonelHolidayTracking.Web.Controllers
         public IActionResult Delete(int Id)
         {
             var personnel = _personnelService.GetByIdAsync(Id).Result;
-            _personnelService.Remove(personnel);
+            _personnelService.RemoveWithStatus(personnel);
             return RedirectToAction("Index");
         }
     }

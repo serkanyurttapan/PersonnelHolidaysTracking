@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<PersonnelHolidayDto>
+@{
+    ViewData["Title"] = "Personnel Holiday Detail List";
+}
+
+
+<h3 style="text-align:center; margin:auto">Personnel Holiday List</h3>
+<hr />
+<a class="btn btn-primary mt-4" asp-action="Create">Add New Holiday </a>
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>PersonnelHolidayId</th>
+            <th>HolidayStartDate</th>
+            <th>HolidayEndDate</th>
+            <th>Description Name</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.PersonnelHolidayId</td>
+                <td>@item.HolidayStartDate</td>
+                <td>@item.HolidayEndDate</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,59 @@
+﻿@model PersonnelHolidaysTracking.Core.Models.PersonnelHoliday
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@if (ViewBag.Message != null)
+{
+    <h6 class="alert-primary">@ViewBag.Message</h6>
+}
+<h1>Create</h1>
+
+<h4>PersonnelHoliday</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+
+                <input asp-for="PersonnelHolidayId" hidden class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="HolidayStartDate" class="control-label"></label>
+                <input asp-for="HolidayStartDate" required class="form-control" />
+                <span asp-validation-for="HolidayStartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HolidayEndDate" class="control-label"></label>
+                <input asp-for="HolidayEndDate" required class="form-control" />
+                <span asp-validation-for="HolidayEndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@if (ViewBag.Message != null)
+{
+    <script>
+
+$(document).ready(function(){
+
+alert('@ViewBag.Message');
+
+});
+
+    </script>
+
+}
+

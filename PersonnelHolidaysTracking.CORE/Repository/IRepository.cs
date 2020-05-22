@@ -15,7 +15,7 @@ namespace PersonnelHolidaysTracking.Core.Repository
         Task AddAsync(TEntity entity);
 
         Task AddRangeAsync(IEnumerable<TEntity> entities);
-        void Remove(TEntity entity);  
+        TEntity Remove(TEntity entity);  
         void RemoveRange(IEnumerable<TEntity> entities);
          TEntity Update(TEntity entity);
 

@@ -21,7 +21,7 @@ namespace PersonnelHolidaysTracking.Data.Repository
 
         public List<DepartmentDto> GetDepartmentsDto()
         {
-            var result = _asistPersonnelTrackingContext.Departments.ToList();
+            var result = _asistPersonnelTrackingContext.Departments.Where(x=>x.IsDeleted!=true).ToList();
             List<DepartmentDto> departmentDtos;
             return departmentDtos = result.Select(x => new DepartmentDto
             {
@@ -29,6 +29,11 @@ namespace PersonnelHolidaysTracking.Data.Repository
                 DepartmentName = x.DepartmentName
             }).ToList();
 
+        }
+
+        public void RemoveWithStatus(Department entity)
+        {
+            entity.IsDeleted = true;
         }
     }
 }

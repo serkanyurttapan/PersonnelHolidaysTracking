@@ -26,5 +26,10 @@ namespace PersonnelHolidaysTracking.Service.Services
             return _unitOfWork.Personnels.GetWithIPersonnelHolidays();
         }
 
+        public void RemoveWithStatus(Personnel entity)
+        {
+            _unitOfWork.Personnels.RemoveWithStatus(entity);
+            _unitOfWork.Commit();
+        }
     }
 }

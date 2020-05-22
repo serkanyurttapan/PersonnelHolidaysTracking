@@ -6,6 +6,7 @@ namespace PersonnelHolidaysTracking.Core.DTOs
 {
     public class PersonnelHolidayDto
     {
+        public int PersonnelId { get; set; }
         public int PersonnelHolidayId { get; set; }
         public string Description { get; set; }
         public DateTime HolidayStartDate { get; set; }

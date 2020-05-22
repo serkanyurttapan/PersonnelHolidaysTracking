@@ -44,9 +44,12 @@ namespace PersonnelHolidaysTracking.Data.Repository
             return await _dbset.FindAsync(Id);
         }
 
-        public void Remove(TEntity entity)
+        public TEntity Remove(TEntity entity)
         {
-            _dbset.Remove(entity);
+           
+            _context.Entry(entity).State = EntityState.Deleted;
+            return entity;
+
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)

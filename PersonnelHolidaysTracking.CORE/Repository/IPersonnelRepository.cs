@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace PersonnelHolidaysTracking.Core.Repository
 {
-    public interface IPersonnelRepository :IRepository<Personnel>
+    public interface IPersonnelRepository : IRepository<Personnel>
     {
         Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId);
         IEnumerable<PersonnelDto> GetWithIPersonnelHolidays();
-
-
+        void RemoveWithStatus(Personnel entity);
 
     }
-
 }

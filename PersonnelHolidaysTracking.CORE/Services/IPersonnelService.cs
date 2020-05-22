@@ -11,6 +11,6 @@ namespace PersonnelHolidaysTracking.Core.Services
     {
         Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId);
         IEnumerable<PersonnelDto> GetWithIPersonnelHolidays();
-
+        void RemoveWithStatus(Personnel entity);
     }
 }
