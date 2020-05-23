@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using PersonnelHolidaysTracking.Core.DTOs;
 using PersonnelHolidaysTracking.Core.Models;
@@ -21,72 +22,26 @@ namespace PersonnelHolidaysTracking.Data.Repository
 
         }
 
-        public async Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId)
+        public PersonnelDto GetWithIPersonnelHolidayGetByAsync(int personelId)
         {
+            PersonnelWithPersonnelHolidayDto personnelSpecial = new PersonnelWithPersonnelHolidayDto();
 
-            Personnel personnels = await _asistPersonnelTrackingContext.Personnels.Where(x => x.IsDeleted != true).Include(x => x.PersonnelHolidays).SingleOrDefaultAsync(x => x.PersonnelId == personelId);
-
-            var days = (from p in personnels.PersonnelHolidays
-
-                        select new
-                        {
-                            p.HolidayEndDate,
-                            p.HolidayStartDate
-                        }
-                          );
-            int totalDay = 0;
-            foreach (var item in days)
+            List<PersonnelHoliday> personnelHolidays = _asistPersonnelTrackingContext.PersonnelHolidays.Where(x => x.IsDeleted != true).Include(x => x.Personnel).ToList();
+            IEnumerable<IGrouping<int, PersonnelHoliday>> personnelGrouping = personnelHolidays.GroupBy(x => x.PersonnelId);
+            foreach (var personnelGroupItem in personnelGrouping)
             {
-                TimeSpan ts = (item.HolidayEndDate - item.HolidayStartDate);
-                totalDay += Math.Abs(ts.Days) + 2;
+                Personnel personnel = new Personnel();
 
-            }
-            int deserveDay = (DateTime.Now.Year - personnels.WorkStartDate.Year) < 6 ? 14 : 20;
-
-            int reaminingDay = deserveDay - totalDay;
-
-            IEnumerable<PersonnelHolidayDto> personnelHolidayDtos = from p in personnels.PersonnelHolidays
-
-                                                                    select new PersonnelHolidayDto()
-                                                                    {
-                                                                        PersonnelHolidayId = p.PersonnelId
-                                                                    };
-
-            PersonnelWithPersonnelHolidayDto personnelSpecial = new PersonnelWithPersonnelHolidayDto()
-            {
-                PersonnelFirstName = personnels.PersonnelFirstName,
-                PersonnelHolidays = personnelHolidayDtos.ToList(),
-                PersonnelId = personnels.PersonnelId,
-                ReaminingDay = reaminingDay
-            };
-            return personnelSpecial;
-        }
-
-        public IEnumerable<PersonnelDto> GetWithIPersonnelHolidays()
-        {
-            var personnelWithPersonnelHolidays = new List<PersonnelWithPersonnelHolidayDto>();
-            IList<Personnel> personnels = _asistPersonnelTrackingContext.Personnels.Where(x=>x.IsDeleted!=true).Include(x => x.PersonnelHolidays).ToList();
-
-            foreach (var personnel in personnels)
-            {
-                var days = (from p in personnel.PersonnelHolidays
-
-                            select new
-                            {
-                                p.HolidayEndDate,
-                                p.HolidayStartDate
-                            }
-                           );
-                int totalDay = 0;
-                foreach (var item in days)
+                int num = 0;
+                foreach (var holiday in personnelGroupItem)
                 {
-                    TimeSpan ts = (item.HolidayEndDate - item.HolidayStartDate);
-                    totalDay += Math.Abs(ts.Days) + 2;
+                    personnel = holiday.Personnel;
+                    TimeSpan timeSpan = holiday.HolidayEndDate - holiday.HolidayStartDate;
+                    num += Math.Abs(timeSpan.Days);
 
                 }
                 int deserveDay = (DateTime.Now.Year - personnel.WorkStartDate.Year) < 6 ? 14 : 20;
-
-                int reaminingDay = deserveDay - totalDay;
+                int reaminingDay = deserveDay - num;
 
                 IEnumerable<PersonnelHolidayDto> personnelHolidayDtos = from p in personnel.PersonnelHolidays
 
@@ -94,6 +49,51 @@ namespace PersonnelHolidaysTracking.Data.Repository
                                                                         {
                                                                             PersonnelHolidayId = p.PersonnelId
                                                                         };
+
+                personnelSpecial = new PersonnelWithPersonnelHolidayDto()
+                {
+                    PersonnelFirstName = personnel.PersonnelFirstName,
+                    PersonnelLastName = personnel.PersonnelLastName,
+                    PersonnelHolidays = personnelHolidayDtos.ToList(),
+                    PersonnelId = personnel.PersonnelId,
+                    ReaminingDay = reaminingDay,
+                    Department = _asistPersonnelTrackingContext.Departments.Where(x => x.DepartmentId == personnel.DepartmentId).FirstOrDefault().DepartmentName
+
+                };
+
+            }
+
+            return personnelSpecial;
+        }
+
+        public IEnumerable<PersonnelDto> GetWithIPersonnelHolidays()
+        {
+            var personnelWithPersonnelHolidays = new List<PersonnelWithPersonnelHolidayDto>();
+
+            List<PersonnelHoliday> personnelHolidays = _asistPersonnelTrackingContext.PersonnelHolidays.Where(x => x.IsDeleted != true).Include(x => x.Personnel).ToList();
+            IEnumerable<IGrouping<int, PersonnelHoliday>> personnelGrouping = personnelHolidays.GroupBy(x => x.PersonnelId);
+            foreach (var personnelGroupItem in personnelGrouping)
+            {
+                Personnel personnel = new Personnel();
+
+                int num = 0;
+                foreach (var holiday in personnelGroupItem)
+                {
+                    personnel = holiday.Personnel;
+                    TimeSpan timeSpan = holiday.HolidayEndDate - holiday.HolidayStartDate;
+                    num += Math.Abs(timeSpan.Days);
+
+                }
+                int deserveDay = (DateTime.Now.Year - personnel.WorkStartDate.Year) < 6 ? 14 : 20;
+                int reaminingDay = deserveDay - num;
+
+                IEnumerable<PersonnelHolidayDto> personnelHolidayDtos = from p in personnel.PersonnelHolidays
+
+                                                                        select new PersonnelHolidayDto()
+                                                                        {
+                                                                            PersonnelHolidayId = p.PersonnelId
+                                                                        };
+
                 PersonnelWithPersonnelHolidayDto personnelSpecial = new PersonnelWithPersonnelHolidayDto()
                 {
                     PersonnelFirstName = personnel.PersonnelFirstName,
@@ -101,21 +101,50 @@ namespace PersonnelHolidaysTracking.Data.Repository
                     PersonnelHolidays = personnelHolidayDtos.ToList(),
                     PersonnelId = personnel.PersonnelId,
                     ReaminingDay = reaminingDay,
-                    Department =_asistPersonnelTrackingContext.Departments.Where(x=>x.DepartmentId==personnel.DepartmentId).FirstOrDefault().DepartmentName
-                
+                    Department = _asistPersonnelTrackingContext.Departments.Where(x => x.DepartmentId == personnel.DepartmentId).FirstOrDefault().DepartmentName
+
                 };
-               
+
                 personnelWithPersonnelHolidays.Add(personnelSpecial);
             }
 
             return personnelWithPersonnelHolidays;
-
         }
-
         public void RemoveWithStatus(Personnel entity)
         {
             entity.IsDeleted = true;
-             
+
+        }
+        public bool GetControl(PersonnelDto personnelDto, PersonnelHolidayDto personnelHoliday)
+        {
+            TimeSpan ts = (personnelHoliday.HolidayEndDate - personnelHoliday.HolidayStartDate);
+            int totalDay = Math.Abs(ts.Days);
+
+
+            if (personnelHoliday.HolidayStartDate <= personnelHoliday.HolidayEndDate)
+            {
+                if (personnelDto.ReaminingDay < totalDay)
+                {
+                    return false;
+                }
+                var appointmentNoShow = (from p in _asistPersonnelTrackingContext.Personnels
+
+                                         join o in _asistPersonnelTrackingContext.Departments on p.PersonnelId equals o.DepartmentId
+
+                                         join ph in _asistPersonnelTrackingContext.PersonnelHolidays on p.PersonnelId equals ph.PersonnelId
+
+                                         select p.PersonnelId == personnelHoliday.PersonnelId
+                                          && ph.HolidayStartDate >= personnelHoliday.HolidayStartDate
+                                          && ph.HolidayEndDate >= personnelHoliday.HolidayEndDate);
+
+
+                if (appointmentNoShow.Contains(true))
+                {
+                    return false;
+                }
+                else return true;
+            }
+            return false;
         }
     }
 }

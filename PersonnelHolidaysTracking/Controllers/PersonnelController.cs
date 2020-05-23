@@ -29,9 +29,9 @@ namespace PersonnelHolidaysTracking.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public IActionResult GetById(int id)
         {
-            PersonnelDto personels = await _personnelService.GetWithIPersonnelHolidayGetByAsync(id);
+            PersonnelDto personels =  _personnelService.GetWithIPersonnelHolidayGetByAsync(id);
 
             return Ok(_mapper.Map<PersonnelWithPersonnelHolidayDto>(personels));
         }

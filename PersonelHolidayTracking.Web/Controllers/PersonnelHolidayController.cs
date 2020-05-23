@@ -12,15 +12,15 @@ using PersonnelHolidaysTracking.Core.Services;
 
 namespace PersonelHolidayTracking.Web.Controllers
 {
- 
-   
+
+
     public class PersonnelHolidayController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IPersonnelService _personnelService;
         private readonly IPersonnelHolidayService _personnelHolidayService;
-    
-        public PersonnelHolidayController(IMapper mapper,IPersonnelHolidayService personnelHolidayService,IPersonnelService personnelService)
+
+        public PersonnelHolidayController(IMapper mapper, IPersonnelHolidayService personnelHolidayService, IPersonnelService personnelService)
         {
             _personnelHolidayService = personnelHolidayService;
             _personnelService = personnelService;
@@ -38,23 +38,18 @@ namespace PersonelHolidayTracking.Web.Controllers
         public async Task<IActionResult> Create(PersonnelHolidayDto personnelHoliday)
         {
             personnelHoliday.PersonnelId = Convert.ToInt32(TempData["Id"]);
-            var res = await _personnelService.GetWithIPersonnelHolidayGetByAsync(personnelHoliday.PersonnelId);
-            TimeSpan ts = (personnelHoliday.HolidayEndDate - personnelHoliday.HolidayStartDate);
-            int totalDay = Math.Abs(ts.Days);
-
-            if (res.ReaminingDay >= totalDay)
+            PersonnelDto personnelDto = _personnelService.GetWithIPersonnelHolidayGetByAsync(personnelHoliday.PersonnelId);
+           
+            if (_personnelService.GetControl(personnelDto, personnelHoliday)) //aynı departmandan girilen tarihler arasında personel iznini sorgular
             {
                 await _personnelHolidayService.AddAsync(_mapper.Map<PersonnelHoliday>(personnelHoliday));
             }
-
-            return  RedirectToAction("Index","Personnel");
+            return RedirectToAction("Index", "Personnel");
         }
         public IActionResult Create()
         {
             return View();
         }
-      
-       
 
     }
 }

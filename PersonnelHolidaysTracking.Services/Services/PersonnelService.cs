@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 
 namespace PersonnelHolidaysTracking.Service.Services
 {
-    public class PersonnelService : Service<Personnel>,IPersonnelService
+    public class PersonnelService : Service<Personnel>, IPersonnelService
     {
         public PersonnelService(IUnitOfWork unitOfWork, IRepository<Personnel> repository) : base(unitOfWork, repository)
         {
         }
 
-        public async Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId)
+        public bool GetControl(PersonnelDto personnelDto, PersonnelHolidayDto personnelHoliday)
         {
-            return await _unitOfWork.Personnels.GetWithIPersonnelHolidayGetByAsync(personelId);
+            return _unitOfWork.Personnels.GetControl(personnelDto,personnelHoliday);
+        }
+
+        public PersonnelDto GetWithIPersonnelHolidayGetByAsync(int personelId)
+        {
+            return _unitOfWork.Personnels.GetWithIPersonnelHolidayGetByAsync(personelId);
 
         }
         public IEnumerable<PersonnelDto> GetWithIPersonnelHolidays()
@@ -31,5 +36,6 @@ namespace PersonnelHolidaysTracking.Service.Services
             _unitOfWork.Personnels.RemoveWithStatus(entity);
             _unitOfWork.Commit();
         }
+
     }
 }

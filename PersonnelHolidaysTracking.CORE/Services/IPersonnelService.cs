@@ -9,8 +9,10 @@ namespace PersonnelHolidaysTracking.Core.Services
 {
     public interface IPersonnelService : IServices<Personnel>
     {
-        Task<PersonnelDto> GetWithIPersonnelHolidayGetByAsync(int personelId);
+        PersonnelDto GetWithIPersonnelHolidayGetByAsync(int personelId);
         IEnumerable<PersonnelDto> GetWithIPersonnelHolidays();
         void RemoveWithStatus(Personnel entity);
+        bool GetControl(PersonnelDto personnelDto, PersonnelHolidayDto personnelHoliday);
+
     }
 }
